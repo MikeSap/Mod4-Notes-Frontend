@@ -4,13 +4,13 @@ import NavBar from './components/NavBar'
 import Login from './components/Login'
 import NoteForm from './components/NoteForm'
 import { connect } from 'react-redux'
-import { Switch, Route,  Redirect } from "react-router-dom";
-import React, { useState, useEffect } from 'react';
+import { Switch, Route,  Redirect } from "react-router-dom"
+import React, { useEffect, useState } from 'react'
+import { login, logout } from './actions'
 
 
 const App = (props) => {
 
-  // useState
 
   useEffect(() => {
     document.title = props.user ? 
@@ -77,9 +77,9 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  login: data => dispatch({type: 'LOGIN', user: data}),
-  logout: () => dispatch({ type: 'LOGOUT'}) 
-})
+// const mapDispatchToProps = (dispatch) => ({
+//   login: data => dispatch({type: 'LOGIN', user: data}),
+//   logout: () => dispatch({ type: 'LOGOUT'}) 
+// })
 
-export default connect(mapStateToProps, mapDispatchToProps)(App); 
+export default connect(mapStateToProps,{ login, logout })(App); 

@@ -43,5 +43,5 @@ class NoteForm extends Component {
         );
     }
 }
- 
+
 export default connect(null, {newNote} )(NoteForm);

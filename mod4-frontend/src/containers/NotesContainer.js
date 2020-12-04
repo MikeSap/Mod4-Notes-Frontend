@@ -1,11 +1,9 @@
 import Note from '../components/Note'
 import { connect } from 'react-redux'
-import { Button, Card, Image } from 'semantic-ui-react'
-import React, { useState, useEffect } from 'react'
+import { Card } from 'semantic-ui-react'
+import React, { useEffect } from 'react'
 
 const NotesContainer = (props) => {
-
-    // const [notes, setNotes] = useState([])
 
     useEffect(() => {        
     }, [props.notes])

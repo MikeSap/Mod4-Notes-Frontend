@@ -71,7 +71,7 @@ export const deleteNote = (id) => {
         fetch(`http://localhost:3000/notes/${id}`,{ method: "DELETE" })
          .then(resp => resp.json())
          .then(delNote => {
-             dispatch({ type: "DELETE_NOTE", noteId: id})
+             dispatch({ type: "DELETE_NOTE", noteId: delNote.deletedNote})
          })
     }
 }
@@ -82,9 +82,3 @@ export const setEditedNote = (note) => {
         note
     }
 }
-
-// export const clearEditedNote = () =>  {
-//     return {
-//         type: "CLEAR_EDITED_NOTE"
-//     }
-// }

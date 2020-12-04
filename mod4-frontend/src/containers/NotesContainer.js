@@ -1,27 +1,26 @@
 import Note from '../components/Note'
 import { connect } from 'react-redux'
+import { Button, Card, Image } from 'semantic-ui-react'
 import React, { useState, useEffect } from 'react'
 
 const NotesContainer = (props) => {
 
-    const [notes, setNotes] = useState([])
+    // const [notes, setNotes] = useState([])
 
-    useEffect(() => {
-        setNotes({
-            ...props.notes
-        })
+    useEffect(() => {        
     }, [props.notes])
 
     return ( 
-        <div>
+        <Card.Group>
             {props.notes.map(note => <Note {...note}/>)}
-        </div>
-        );
+        </Card.Group>       
+    );
 }
  
 const readAccess = (state) => {
    return {
-       notes: state.notes
+       notes: state.notes.notes,
+       loading: state.notes.loading
    }
 }
 

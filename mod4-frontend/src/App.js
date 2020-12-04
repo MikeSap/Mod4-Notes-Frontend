@@ -65,6 +65,17 @@ const App = (props) => {
             :
             <Redirect to="/login" />
             )}}/>
+        
+        <Route exact path="/editNote/:id" render={() => {
+           return (
+            props.user ?
+            <div>
+              <NavBar logout={props.logout}/>
+              <NoteForm /> 
+            </div>
+            :
+            <Redirect to="/login" />
+            )}}/>
 
       </Switch>
     </div>
@@ -73,7 +84,7 @@ const App = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.login.username
+    user: state.login.user.username
   }
 }
 

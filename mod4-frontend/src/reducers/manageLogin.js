@@ -1,13 +1,16 @@
 export default function manageLogin(state = {
-    username: ""
+    user: {username: "", id: ""}, loading: false
 }, action) {
     switch (action.type) {
 
         case 'LOGIN':
-            return { username: action.user.username }
+            return { user: {username: "", id: ""}, loading: true}
+
+        case 'LOGGED_IN':
+            return { user: {username: action.user.username, id: action.user.id}, loading:false }
 
         case 'LOGOUT':
-            return { username: "" }
+            return { user: {username:"", id: ""}, loading:false }
 
         default:
           return state;

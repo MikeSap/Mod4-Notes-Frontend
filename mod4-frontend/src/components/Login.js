@@ -1,38 +1,46 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux'
 
-class Login extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { 
-            username: ""
-         }
-    }
+const Login = (props) => {
+
+    const [formData, setFormData] = useState({username:"", password: ""})
+
     
-    handleSubmit = e => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        this.props.login(this.state)
-        this.setState({
+        props.login(formData)
+        setFormData({
           username: '',
+          password: ''
         })
       }
     
-    handleChange(e) {
-        this.setState({
+    const handleChange = (e) => {
+        setFormData({
+          ...formData,
           [e.target.name]: e.target.value
         });
       }
-    
-    render() {
+
         return(
           <div>
-            <form onSubmit={this.handleSubmit}>
+            {props.loginInfo.errors? <div><h3>{props.loginInfo.user}</h3></div>: null}
+            <form onSubmit={handleSubmit}>
                 <label>Username</label>
-              <input type="text" name="username" onChange={(event) => this.handleChange(event)} value={this.state.username}/>
-              <input type="submit" />
+                <input type="text" name="username" onChange={handleChange} value={formData.username}/>
+                <label>Password</label>
+                <input type="password" name="password" onChange={handleChange} value={formData.password}/>
+                <input type="submit" />
+                <button value="Sign Up"/>
            </form>
          </div>
        );
-    }
 }
  
-export default Login;
+const readAccess = (state) => {
+  return {
+    loginInfo: state.login
+  }
+}
+
+export default connect(readAccess)(Login);

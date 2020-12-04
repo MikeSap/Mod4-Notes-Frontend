@@ -55,7 +55,7 @@ const App = (props) => {
             <Redirect to="/login" />
             )}}/>
 
-        <Route exact path="/newNote" render={() => {
+        <Route exact path="/notes/new" render={() => {
            return (
             props.user ?
             <div>
@@ -66,7 +66,7 @@ const App = (props) => {
             <Redirect to="/login" />
             )}}/>
         
-        <Route exact path="/editNote/:id" render={() => {
+        <Route exact path="/note/edit/:id" render={() => {
            return (
             props.user ?
             <div>

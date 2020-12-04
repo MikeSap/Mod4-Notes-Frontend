@@ -1,23 +1,24 @@
 import React from 'react';
-import { Button, Card } from 'semantic-ui-react'
+import { Button, Card, Accordion, Icon } from 'semantic-ui-react'
 import { deleteNote, setEditedNote } from '../actions'
 import { connect } from 'react-redux'
 import { useHistory } from "react-router";
-
-
 
 const Note = (props) => {
     const {content, title, id} = props
     const history = useHistory()
     return(
         
-            <Card>
-                <Card.Header>{title}</Card.Header> 
-                <Card.Description>{content}</Card.Description>
+            <Card >
+                <Card.Header textAlign="center">{title}</Card.Header> 
+                <Card.Content>{content}</Card.Content>
+                <Accordion><Icon name='dropdown' /><Accordion.Content>
+                    {content}
+                </Accordion.Content></Accordion>
                 <div className="ui two buttons">
                     <Button 
                     onClick={() =>  {                        
-                        history.push(`/editNote/${id}`)
+                        history.push(`/note/edit/${id}`)
                         props.setEditedNote({content, title, id})
                     }}
                     basic color='green'>

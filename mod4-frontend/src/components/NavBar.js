@@ -1,30 +1,28 @@
 import React from 'react';
-import { Menu } from 'semantic-ui-react'
-import { Link } from "react-router-dom";
+import { Button, Dropdown, Menu } from 'semantic-ui-react'
+import { useHistory } from "react-router";
 
 
 const NavBar = (props) => {
+
+    const history = useHistory()
+
     return (
-        <Menu>
-            
-            <Link to="/">
+        <Menu inverted size='small'>
+        
             <Menu.Item
             name="Flatnote"
-            />
-            </Link>
+            onClick={() => history.push('/')}
+            />            
 
-            <Link to="/newNote">
             <Menu.Item
             name="New Note"
+            onClick={() => history.push('/notes/new')}
             />
-            </Link>
-
-            <Link to="/">
-            <Menu.Item
-            name="Sign Out"
-            onClick={props.logout}
-            />
-            </Link>
+           
+            <Menu.Item position='right'>
+            <Button primary>Sign Out</Button>           
+            </Menu.Item>
 
         </Menu>
     )

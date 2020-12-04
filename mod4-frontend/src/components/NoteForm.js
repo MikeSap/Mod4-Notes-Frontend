@@ -3,8 +3,6 @@ import { connect } from 'react-redux'
 import { newNote, editNote } from '../actions/index'
 import { useLocation, useHistory } from "react-router";
 
-
-
 const NoteForm = (props) => {
     
     const [formData, setFormData] = useState({title:"", content: ""})
@@ -20,7 +18,8 @@ const NoteForm = (props) => {
     }, [props.editedNote])
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
+
         if(location.pathname.includes("edit")){
         let note = {...formData, user_id: props.userId, note_id:props.editedNote.id}
         props.editNote(note)

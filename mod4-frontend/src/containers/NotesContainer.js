@@ -5,9 +5,6 @@ import React, { useEffect } from 'react'
 
 const NotesContainer = (props) => {
 
-    useEffect(() => {        
-    }, [props.notes])
-
     return ( 
         <Card.Group>
             {props.notes.map(note => <Note {...note}/>)}

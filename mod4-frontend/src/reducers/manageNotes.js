@@ -25,6 +25,14 @@ let notes = state.notes
             loading:false
         }
 
+        case 'LOGOUT':
+            return {
+                ...state,
+                notes: [],
+                loading:false,
+                editedNote: {title:"", content:""}
+            }
+
         case("EDIT_NOTE"):
         idx = state.notes.findIndex(n => n.id === action.note.id)
         notes.splice(idx, 1, action.note)
@@ -43,7 +51,6 @@ let notes = state.notes
         }
 
         case("SET_EDITED_NOTE"):
-
         return {
             ...state,
             editedNote: action.note

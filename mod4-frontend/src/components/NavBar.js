@@ -17,13 +17,13 @@ const NavBar = (props) => {
             onClick={() => history.push('/')}
             />            
 
-            {location.includes('signup') ? null :
+            {location.includes('signup') || location.includes('login') ? null :
             <Menu.Item
             name="New Note"
             onClick={() => history.push('/notes/new')}
             />}
            
-            {location.includes('signup') ? null :
+            {location.includes('signup') || location.includes('login') ? null :
             <Menu.Item position='right'>
             <Button onClick={props.logout} primary>Sign Out</Button>           
             </Menu.Item>}

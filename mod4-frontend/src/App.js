@@ -47,6 +47,7 @@ const App = (props) => {
             <Redirect to="/notes" />
             :
             <div>
+              <NavBar />
               <Login />
             </div>
           )}}/>

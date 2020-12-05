@@ -4,6 +4,7 @@ import { newNote, editNote } from '../actions/index'
 import { useHistory } from "react-router";
 import { Button, Form } from 'semantic-ui-react'
 
+
 const NoteForm = (props) => {
     
     const [formData, setFormData] = useState({title:"", content: ""})

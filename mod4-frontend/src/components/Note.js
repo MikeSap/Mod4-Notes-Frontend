@@ -18,7 +18,6 @@ const Note = (props) => {
         setActiveIndex( newIndex )
       }
     
-      console.log(activeIndex, "pre return")
     return(       
          
             <Card >

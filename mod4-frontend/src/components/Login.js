@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux'
 import { login } from '../actions'
+import { Button, Form } from 'semantic-ui-react'
+import { useHistory } from "react-router";
+
 
 
 
 const Login = (props) => {
 
     const [formData, setFormData] = useState({username:"", password: ""})
-
+    const history = useHistory()
     
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -26,17 +29,17 @@ const Login = (props) => {
       }
 
         return(
-          <div>
-            {props.loginInfo.errors? <div><h3>{props.loginInfo.user}</h3></div>: null}
-            <form onSubmit={handleSubmit}>
-                <label>Username</label>
-                <input type="text" name="username" onChange={handleChange} value={formData.username}/>
-                <label>Password</label>
-                <input type="password" name="password" onChange={handleChange} value={formData.password}/>
-                <input type="submit" />
-                <button value="Sign Up"/>
-           </form>
-         </div>
+          <Form widths='equal' onSubmit={handleSubmit}>
+          {props.loginInfo.errors? <div><h3>{props.loginInfo.user}</h3></div>: null}
+                <Form.Field>
+                <input placeholder='username' type="text" name="username" onChange={handleChange} value={formData.username}/>
+                </Form.Field>
+                <Form.Field>
+                <input placeholder='password' type="password" name="password" onChange={handleChange} value={formData.password} />                
+                </Form.Field>
+                <Button type="submit">Submit</Button>
+                <Button onClick={() => history.push('/signup')}>Sign Up</Button>
+           </Form>
        );
 }
  

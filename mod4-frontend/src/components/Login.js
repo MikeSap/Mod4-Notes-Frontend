@@ -31,6 +31,9 @@ const Login = (props) => {
         return(
           <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
             <Grid.Column style={{ maxWidth: 450 }}>
+
+              {/* HOW DO I MAKE THIS CLEANER ALL I NEED TO DO IS CHANGE THE TEXT INSIDE OF HEADER */}
+              
               {location.includes('signup') ?
               <Header as='h2' color='black' textAlign='center'>
               Sign-up to FlatNote
@@ -41,7 +44,10 @@ const Login = (props) => {
               </Header>
               }
                 <Form size='large' onSubmit={handleSubmit}>
-                  {props.loginInfo.errors ? <div><h3>{props.loginInfo.user}</h3></div> : null}
+
+                  {/* HOW DO I MAKE THIS MESSAGE TIMEOUT */}
+                  {props.loginInfo.errors ? <Message negative>{props.loginInfo.user}</Message> : null}
+
                   <Segment stacked>
                     <Form.Field>
                     <input placeholder='username' type="text" name="username" onChange={handleChange} value={formData.username}/>
@@ -55,14 +61,16 @@ const Login = (props) => {
                     </Form.Field>
                     : null }
                     <Button type="submit">Submit</Button>
-                    {/* {location.includes('signup') ? null : <Button onClick={() => history.push('/signup')}>Sign Up</Button>} */}
                   </Segment>
+
                 </Form>
+                
                 {location.includes('signup') ? null : 
                 <Message>
                 New to FlatNote? <a href='/signup'>Sign Up</a>
                 </Message>
                 }
+             
              </Grid.Column>
            </Grid>
        );

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux'
 import { newNote, editNote } from '../actions/index'
 import { useHistory } from "react-router";
-import { Button, Form } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Segment, TextArea } from 'semantic-ui-react'
 
 
 const NoteForm = (props) => {
@@ -49,16 +49,22 @@ const NoteForm = (props) => {
       }
 
         return ( 
-          <Form onSubmit={handleSubmit}>
-            {location.includes("edit")? <label>edit note</label> :  <label>add note</label> }
-              <Form.Field>
-                <input type="text" name="title" placeholder="title" onChange={handleChange} value={formData.title}/>
-              </Form.Field>
-              <Form.Field>
-              <input type="text" name="content" placeholder="content" onChange={handleChange} value={formData.content}/>
-              </Form.Field>
-              <Button type="submit">Submit</Button>
-          </Form>
+          <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+             <Grid.Column style={{ maxWidth: 450 }}>
+              <Header>
+              {location.includes("edit")? "edit note" :  "add note" }
+              </Header>
+              <Form size="large" onSubmit={handleSubmit}>  
+                <Segment stacked>              
+                  <Form.Field>
+                    <input type="text" name="title" placeholder="title" onChange={handleChange} value={formData.title}/>
+                  </Form.Field>
+                  <TextArea name="content" placeholder="content" onChange={handleChange} value={formData.content}/>
+                  <Button type="submit">Submit</Button>
+                </Segment>
+              </Form>
+            </Grid.Column>
+          </Grid>
         );
 }
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Card, Accordion, Icon } from 'semantic-ui-react'
-import { deleteNote, setEditedNote } from '../actions'
+import { deleteNote, setEditNote, setShowNote, clearShowNote } from '../actions'
 import { connect } from 'react-redux'
 import { useHistory } from "react-router"
 
@@ -11,8 +11,20 @@ const Note = (props) => {
 
     const [activeIndex, setActiveIndex] = useState(history.location.pathname.includes(id) ? 0 : -1 )
 
+    const backToNotes = () => {
+        history.push(`/notes`)
+        props.clearShowNote()
+    }
+
+    const toShowPage = () => {
+        history.push(`/notes/${id}`)
+        props.setShowNote({title, content, id})    
+    }
+
     const acc = (e, titleProps) => {
-        location.pathname.includes(id) ? history.push(`/notes`) : history.push(`/notes/${id}`) 
+        
+        location.pathname.includes(id) ? backToNotes() : toShowPage()
+
         const { index } = titleProps
         const newIndex = activeIndex === index ? -1 : index
     
@@ -42,7 +54,7 @@ const Note = (props) => {
                     <Button 
                     onClick={() =>  {                        
                         history.push(`/note/edit/${id}`)
-                        props.setEditedNote({content, title, id})
+                        props.setEditNote({content, title, id})
                     }}
                     basic color='green'>
                         Edit
@@ -57,4 +69,4 @@ const Note = (props) => {
     )
 }
 
-export default connect(null, { deleteNote, setEditedNote })(Note)
+export default connect(null, { deleteNote, setEditNote, setShowNote, clearShowNote })(Note)

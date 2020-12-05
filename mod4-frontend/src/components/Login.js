@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux'
-import { login, signup} from '../actions'
+import { login, signup } from '../actions'
 import { Button, Form } from 'semantic-ui-react'
 import { useHistory } from "react-router";
 
-
-// Signup not sending to proper rails route
-
 const Login = (props) => {
 
-    const [formData, setFormData] = useState({username:"", password: ""})
+    const [formData, setFormData] = useState({username:"", password: "", password_confirmation: ""})
     const history = useHistory()
     const location = history.location.pathname
     
@@ -20,7 +17,8 @@ const Login = (props) => {
         :props.login(formData)
         setFormData({
           username: '',
-          password: ''
+          password: '',
+          password_confirmation: ''
         })
       }
     

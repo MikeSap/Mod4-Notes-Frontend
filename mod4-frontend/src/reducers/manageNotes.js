@@ -1,4 +1,4 @@
-export default function manageNotes(state = {notes:[], loading:false, editedNote: {title:"", content:""}}, action) {
+export default function manageNotes(state = {notes:[], loading:false}, action) {
 
 let idx
 let notes = state.notes
@@ -30,15 +30,13 @@ let notes = state.notes
                 ...state,
                 notes: [],
                 loading:false,
-                editedNote: {title:"", content:""}
             }
 
         case("EDIT_NOTE"):
         idx = state.notes.findIndex(n => n.id === action.note.id)
         notes.splice(idx, 1, action.note)
         return { notes,
-            loading: false,
-            editedNote: {title:"", content:""}
+            loading: false
         }
 
         case("DELETE_NOTE"):
@@ -49,13 +47,7 @@ let notes = state.notes
             notes,
             loading: false
         }
-
-        case("SET_EDITED_NOTE"):
-        return {
-            ...state,
-            editedNote: action.note
-        }
-
+        
         default:
           return state;
       }

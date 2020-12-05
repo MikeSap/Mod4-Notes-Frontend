@@ -2,23 +2,29 @@ import './App.css';
 import NotesContainer from './containers/NotesContainer'
 import NavBar from './components/NavBar'
 import NoteForm from './components/NoteForm'
-import Note from './components/Note'
 import { connect } from 'react-redux'
 import Login from './components/Login'
 import { Switch, Route,  Redirect } from "react-router-dom"
-import React, { useEffect } from 'react'
-import { useLocation } from "react-router";
+// import React, { useEffect } from 'react'
+// import { useHistory } from "react-router";
 
 const App = (props) => {
 
-  const location = useLocation()
+  // const history = useHistory()
 
-  useEffect(() => {
-    document.title = props.user ? 
-    `You are logged in as ${props.user}`
-    :
-    'You are not logged in'
-  })
+  // useEffect(() => {
+  //   props.user ? loggedIn() : notLoggedIn()
+  // },[props.user])
+
+  // const loggedIn = () => {
+  //   document.title = `You are logged in as ${props.user}`
+  //   history.push('/notes')
+  // }
+
+  // const notLoggedIn = () => {
+  //   document.title ='You are not logged in'
+  //   history.push('/login')
+  // }
 
   return (
     <div>
@@ -87,16 +93,11 @@ const App = (props) => {
             )}}/>
         
         <Route exact path="/notes/:id" render={() => {
-          let id = location.pathname.split("/")
-          id = id[id.length-1]
-          let note = props.notes.find( n => n.id === parseInt(id) ) 
           return (
             props.user ?
             <div>
               <NavBar />
-              <Note 
-              {...note}
-              /> 
+              <NotesContainer /> 
             </div>
             :
             <Redirect to="/login" />
@@ -109,7 +110,7 @@ const App = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.login.user.username,
+    user: state.login.user.id,
     notes: state.notes.notes
   }
 }

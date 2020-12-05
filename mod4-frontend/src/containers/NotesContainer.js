@@ -1,13 +1,19 @@
 import Note from '../components/Note'
 import { connect } from 'react-redux'
 import { Card } from 'semantic-ui-react'
+import { useHistory } from "react-router";
 import React from 'react'
 
 const NotesContainer = (props) => {
 
+    const history = useHistory()
+    const location = history.location.pathname
+
     return ( 
         <Card.Group centered>
-            {props.notes.map(note => <Note {...note} key={note.id}/>)}
+            {location.includes(props.showNote.id) ? <Note {...props.showNote} key={props.showNote.id}/>
+            :
+            props.notes.map(note => <Note {...note} key={note.id}/>)}
         </Card.Group>
     );
 }
@@ -15,7 +21,8 @@ const NotesContainer = (props) => {
 const readAccess = (state) => {
    return {
        notes: state.notes.notes,
-       loading: state.notes.loading
+       loading: state.notes.loading,
+       showNote: state.showNote
    }
 }
 

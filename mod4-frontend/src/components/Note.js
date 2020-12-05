@@ -7,9 +7,9 @@ import { useHistory } from "react-router"
 const Note = (props) => {
     const {content, title, id} = props
     const history = useHistory()
-    const location = history.location
+    const location = history.location.pathname
 
-    const [activeIndex, setActiveIndex] = useState(history.location.pathname.includes(id) ? 0 : -1 )
+    const [activeIndex, setActiveIndex] = useState(location.includes(id) ? 0 : -1 )
 
     const backToNotes = () => {
         history.push(`/notes`)
@@ -23,7 +23,7 @@ const Note = (props) => {
 
     const acc = (e, titleProps) => {
         
-        location.pathname.includes(id) ? backToNotes() : toShowPage()
+        location.includes(id) ? backToNotes() : toShowPage()
 
         const { index } = titleProps
         const newIndex = activeIndex === index ? -1 : index
@@ -31,6 +31,11 @@ const Note = (props) => {
         setActiveIndex( newIndex )
 
       }
+
+    //   const deleteNote = (id) => {
+    //     props.deleteNote(id)
+    //     location.includes(id) ? history.push('/notes') : null
+    //   }
     
     return(       
          
@@ -60,7 +65,10 @@ const Note = (props) => {
                         Edit
                     </Button>
                     <Button 
-                    onClick={() => props.deleteNote(id)}
+                    onClick={() => {
+                        props.deleteNote(id)
+                        history.push('/notes')
+                    }}
                     basic color='red'>
                         Delete
                     </Button>

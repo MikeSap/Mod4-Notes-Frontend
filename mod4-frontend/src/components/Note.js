@@ -22,8 +22,8 @@ const Note = (props) => {
     
     return(       
          
-            <Card >
-                <Card.Content> 
+            <Card className="card">
+                <Card.Content > 
                     <Accordion styled>
                     <Accordion.Title
                     active={ activeIndex === 0}

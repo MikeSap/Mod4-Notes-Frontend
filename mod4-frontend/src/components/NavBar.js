@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 const NavBar = (props) => {
 
     const history = useHistory()
+    const location = history.location.pathname
 
     return (
         <Menu inverted size='small'>
@@ -16,14 +17,16 @@ const NavBar = (props) => {
             onClick={() => history.push('/')}
             />            
 
+            {location.includes('signup') ? null :
             <Menu.Item
             name="New Note"
             onClick={() => history.push('/notes/new')}
-            />
+            />}
            
+            {location.includes('signup') ? null :
             <Menu.Item position='right'>
             <Button onClick={props.logout} primary>Sign Out</Button>           
-            </Menu.Item>
+            </Menu.Item>}
 
         </Menu>
     )

@@ -6,9 +6,9 @@ import React from 'react'
 const NotesContainer = (props) => {
 
     return ( 
-        <Card.Group>
-            {props.notes.map(note => <Note {...note}/>)}
-        </Card.Group>       
+        <Card.Group centered>
+            {props.notes.map(note => <Note {...note} key={note.id}/>)}
+        </Card.Group>
     );
 }
  

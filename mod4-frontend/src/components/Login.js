@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux'
-import { login } from '../actions'
+import { login, signup} from '../actions'
 import { Button, Form } from 'semantic-ui-react'
 import { useHistory } from "react-router";
 
 
-
+// Signup not sending to proper rails route
 
 const Login = (props) => {
 
     const [formData, setFormData] = useState({username:"", password: ""})
     const history = useHistory()
+    const location = history.location.pathname
     
     const handleSubmit = (e) => {
         e.preventDefault();
-        props.login(formData)
+        location.includes('signup') ? 
+        props.signup(formData)
+        :props.login(formData)
         setFormData({
           username: '',
           password: ''
@@ -37,8 +40,13 @@ const Login = (props) => {
                 <Form.Field>
                 <input placeholder='password' type="password" name="password" onChange={handleChange} value={formData.password} />                
                 </Form.Field>
+                {location.includes('signup') ? 
+                <Form.Field>
+                <input placeholder='password confirmation' type="password" name="password_confirmation" onChange={handleChange} value={formData.password_confirmation} />                
+                </Form.Field>
+                : null }
                 <Button type="submit">Submit</Button>
-                <Button onClick={() => history.push('/signup')}>Sign Up</Button>
+                {location.includes('signup') ? null : <Button onClick={() => history.push('/signup')}>Sign Up</Button>}
            </Form>
        );
 }
@@ -49,4 +57,4 @@ const readAccess = (state) => {
   }
 }
 
-export default connect(readAccess, { login })(Login);
+export default connect(readAccess, { login, signup })(Login);

@@ -6,7 +6,7 @@ import Note from './components/Note'
 import { connect } from 'react-redux'
 import Login from './components/Login'
 import { Switch, Route,  Redirect } from "react-router-dom"
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useLocation } from "react-router";
 
 const App = (props) => {
@@ -41,6 +41,14 @@ const App = (props) => {
             <Redirect to="/notes" />
             :
             <div>
+              <Login />
+            </div>
+          )}}/>
+
+        <Route exact path="/signup" render={() => {
+          return (
+            <div>
+              <NavBar />
               <Login />
             </div>
           )}}/>

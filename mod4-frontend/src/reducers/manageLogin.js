@@ -1,5 +1,5 @@
 export default function manageLogin(state = {
-    user: {username: "", id: ""}, loading: false, errors: false
+    user: {username: "", id: ""}, errors: false
 }, action) {
     switch (action.type) {
 

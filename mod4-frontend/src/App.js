@@ -14,7 +14,7 @@ const App = (props) => {
 
   // useEffect(() => {
   //   props.user ? loggedIn() : notLoggedIn()
-  // },[props.user])
+  // },[history.location])
 
   // const loggedIn = () => {
   //   document.title = `You are logged in as ${props.user}`
@@ -111,7 +111,8 @@ const App = (props) => {
 const mapStateToProps = (state) => {
   return {
     user: state.login.user.id,
-    notes: state.notes.notes
+    notes: state.notes,
+    loading: state.loading
   }
 }
 

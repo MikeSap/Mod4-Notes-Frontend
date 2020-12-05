@@ -11,6 +11,7 @@ const NotesContainer = (props) => {
 
     return ( 
         <Card.Group centered>
+
             {location.includes(props.showNote.id) ? <Note {...props.showNote} key={props.showNote.id}/>
             :
             props.notes.map(note => <Note {...note} key={note.id}/>)}
@@ -20,8 +21,8 @@ const NotesContainer = (props) => {
  
 const readAccess = (state) => {
    return {
-       notes: state.notes.notes,
-       loading: state.notes.loading,
+       notes: state.notes,
+       loading: state.loading,
        showNote: state.showNote
    }
 }

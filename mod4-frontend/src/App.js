@@ -79,8 +79,10 @@ const App = (props) => {
             )}}/>
         
         <Route exact path="/notes/:id" render={() => {
-          let note = props.notes.find( n => n.id === parseInt(location.pathname[location.pathname.length-1]))
-           return (
+          let id = location.pathname.split("/")
+          id = id[id.length-1]
+          let note = props.notes.find( n => n.id === parseInt(id) ) 
+          return (
             props.user ?
             <div>
               <NavBar />

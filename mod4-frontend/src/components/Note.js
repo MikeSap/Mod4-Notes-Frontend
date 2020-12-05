@@ -1,30 +1,26 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Button, Card, Accordion, Icon } from 'semantic-ui-react'
 import { deleteNote, setEditedNote } from '../actions'
 import { connect } from 'react-redux'
-import { useHistory, useLocation } from "react-router";
+import { useHistory } from "react-router"
 
 const Note = (props) => {
     const {content, title, id} = props
     const history = useHistory()
-    const location = useLocation()
 
-    useEffect(() => {
-        // check the path or some variable and when its on show page change activeIndex to 0
-    })
-
-    const [activeIndex, setAcc] = useState( -1 )
+    const [activeIndex, setActiveIndex] = useState(history.location.pathname.includes(id) ? 0 : -1 )
 
     const acc = (e, titleProps) => {
         history.push(`/notes/${id}`)
         const { index } = titleProps
         const newIndex = activeIndex === index ? -1 : index
     
-        setAcc( newIndex )
+        setActiveIndex( newIndex )
       }
     
-
-    return(        
+      console.log(activeIndex, "pre return")
+    return(       
+         
             <Card >
                 <Card.Content> 
                     <Accordion styled>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux'
 import { newNote, editNote } from '../actions/index'
 import { useLocation, useHistory } from "react-router";
+import { Button, Form } from 'semantic-ui-react'
 
 const NoteForm = (props) => {
     
@@ -42,15 +43,16 @@ const NoteForm = (props) => {
       }
 
         return ( 
-            <div>
-                <form onSubmit={handleSubmit}>
-                  {location.pathname.includes("edit")? <label>edit note</label> :  <label>add note</label> }
-                   
-                    <input type="text" name="title" placeholder="title" onChange={handleChange} value={formData.title}/>
-                    <input type="text" name="content" placeholder="content" onChange={handleChange} value={formData.content}/>
-                    <input type="submit"/>
-                </form>
-            </div>
+          <Form onSubmit={handleSubmit}>
+            {location.pathname.includes("edit")? <label>edit note</label> :  <label>add note</label> }
+              <Form.Field>
+                <input type="text" name="title" placeholder="title" onChange={handleChange} value={formData.title}/>
+              </Form.Field>
+              <Form.Field>
+              <input type="text" name="content" placeholder="content" onChange={handleChange} value={formData.content}/>
+              </Form.Field>
+              <Button type="submit">Submit</Button>
+          </Form>
         );
 }
 

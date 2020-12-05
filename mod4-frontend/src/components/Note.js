@@ -7,15 +7,17 @@ import { useHistory } from "react-router"
 const Note = (props) => {
     const {content, title, id} = props
     const history = useHistory()
+    const location = history.location
 
     const [activeIndex, setActiveIndex] = useState(history.location.pathname.includes(id) ? 0 : -1 )
 
     const acc = (e, titleProps) => {
-        history.push(`/notes/${id}`)
+        location.pathname.includes(id) ? history.push(`/notes`) : history.push(`/notes/${id}`) 
         const { index } = titleProps
         const newIndex = activeIndex === index ? -1 : index
     
         setActiveIndex( newIndex )
+
       }
     
     return(       

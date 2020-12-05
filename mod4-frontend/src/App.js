@@ -1,16 +1,17 @@
 import './App.css';
 import NotesContainer from './containers/NotesContainer'
 import NavBar from './components/NavBar'
-import Login from './components/Login'
 import NoteForm from './components/NoteForm'
+import Note from './components/Note'
 import { connect } from 'react-redux'
+import Login from './components/Login'
 import { Switch, Route,  Redirect } from "react-router-dom"
-import React, { useEffect, useState } from 'react'
-import { login, logout } from './actions'
-
+import React, { useState, useEffect } from 'react'
+import { useLocation } from "react-router";
 
 const App = (props) => {
 
+  const location = useLocation()
 
   useEffect(() => {
     document.title = props.user ? 
@@ -40,7 +41,7 @@ const App = (props) => {
             <Redirect to="/notes" />
             :
             <div>
-              <Login login={props.login}/>
+              <Login />
             </div>
           )}}/>
         
@@ -48,7 +49,7 @@ const App = (props) => {
            return (
             props.user ?
             <div>
-              <NavBar logout={props.logout}/>
+              <NavBar />
               <NotesContainer /> 
             </div>
             :
@@ -59,7 +60,7 @@ const App = (props) => {
            return (
             props.user ?
             <div>
-              <NavBar logout={props.logout}/>
+              <NavBar />
               <NoteForm /> 
             </div>
             :
@@ -70,8 +71,22 @@ const App = (props) => {
            return (
             props.user ?
             <div>
-              <NavBar logout={props.logout}/>
+              <NavBar />
               <NoteForm /> 
+            </div>
+            :
+            <Redirect to="/login" />
+            )}}/>
+        
+        <Route exact path="/notes/:id" render={() => {
+          let note = props.notes.find( n => n.id === parseInt(location.pathname[location.pathname.length-1]))
+           return (
+            props.user ?
+            <div>
+              <NavBar />
+              <Note 
+              {...note}
+              /> 
             </div>
             :
             <Redirect to="/login" />
@@ -84,13 +99,9 @@ const App = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.login.user.username
+    user: state.login.user.username,
+    notes: state.notes.notes
   }
 }
 
-// const mapDispatchToProps = (dispatch) => ({
-//   login: data => dispatch({type: 'LOGIN', user: data}),
-//   logout: () => dispatch({ type: 'LOGOUT'}) 
-// })
-
-export default connect(mapStateToProps,{ login, logout })(App); 
+export default connect(mapStateToProps,null)(App); 

@@ -1,7 +1,8 @@
 import React from 'react';
-import { Button, Dropdown, Menu } from 'semantic-ui-react'
+import { Button, Menu } from 'semantic-ui-react'
 import { useHistory } from "react-router";
-
+import { logout } from '../actions'
+import { connect } from 'react-redux'
 
 const NavBar = (props) => {
 
@@ -21,7 +22,7 @@ const NavBar = (props) => {
             />
            
             <Menu.Item position='right'>
-            <Button primary>Sign Out</Button>           
+            <Button onClick={props.logout} primary>Sign Out</Button>           
             </Menu.Item>
 
         </Menu>
@@ -30,4 +31,4 @@ const NavBar = (props) => {
 
 
 
-export default NavBar
+export default connect(null, { logout })(NavBar)

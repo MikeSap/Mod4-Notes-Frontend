@@ -1,20 +1,46 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react'
 import { Button, Card, Accordion, Icon } from 'semantic-ui-react'
 import { deleteNote, setEditedNote } from '../actions'
 import { connect } from 'react-redux'
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 
 const Note = (props) => {
     const {content, title, id} = props
     const history = useHistory()
-    return(
-        
+    const location = useLocation()
+
+    useEffect(() => {
+        // check the path or some variable and when its on show page change activeIndex to 0
+    })
+
+    const [activeIndex, setAcc] = useState( -1 )
+
+    const acc = (e, titleProps) => {
+        history.push(`/notes/${id}`)
+        const { index } = titleProps
+        const newIndex = activeIndex === index ? -1 : index
+    
+        setAcc( newIndex )
+      }
+    
+
+    return(        
             <Card >
-                <Card.Header textAlign="center">{title}</Card.Header> 
-                <Card.Content>{content}</Card.Content>
-                <Accordion><Icon name='dropdown' /><Accordion.Content>
-                    {content}
-                </Accordion.Content></Accordion>
+                <Card.Content> 
+                    <Accordion styled>
+                    <Accordion.Title
+                    active={ activeIndex === 0}
+                    index={0}
+                    onClick={acc}
+                    >
+                <Icon name='dropdown' />
+                {title}
+                </Accordion.Title>
+                <Accordion.Content active={ activeIndex === 0}>
+                <p>{content}</p>
+                </Accordion.Content>
+                </Accordion>
+                </Card.Content>
                 <div className="ui two buttons">
                     <Button 
                     onClick={() =>  {                        

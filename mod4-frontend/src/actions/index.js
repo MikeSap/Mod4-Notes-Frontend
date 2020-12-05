@@ -14,7 +14,7 @@ export const login = (user) => {
              user.errors ?
              dispatch({type: "LOGIN_ERROR", errors: user.errors})
              :
-             dispatch({ type: "LOGGED_IN", user})
+             dispatch({ type: "LOGGED_IN", user })
          })
     //  .catch   
     }
@@ -84,3 +84,11 @@ export const setEditedNote = (note) => {
         note
     }
 }
+
+
+// import {...login} from './login'
+// import {...notes} from './notes'
+
+
+// export {...login}
+// export {...notes}

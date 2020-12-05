@@ -1,7 +1,7 @@
 import Note from '../components/Note'
 import { connect } from 'react-redux'
 import { Card } from 'semantic-ui-react'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 const NotesContainer = (props) => {
 

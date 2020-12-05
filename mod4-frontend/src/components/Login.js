@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux'
+import { login } from '../actions'
+
+
 
 const Login = (props) => {
 
@@ -43,4 +46,4 @@ const readAccess = (state) => {
   }
 }
 
-export default connect(readAccess)(Login);
+export default connect(readAccess, { login })(Login);

@@ -31,15 +31,15 @@ const Login = (props) => {
         return(
           <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
             <Grid.Column style={{ maxWidth: 450 }}>
-            {location.includes('signup') ?
-            <Header as='h2' color='black' textAlign='center'>
-            Sign-up to FlatNote
-            </Header>
-             :
+              {location.includes('signup') ?
+              <Header as='h2' color='black' textAlign='center'>
+              Sign-up to FlatNote
+              </Header>
+              :
               <Header as='h2' color='black' textAlign='center'>
               Log-in to FlatNote
               </Header>
-                }
+              }
                 <Form size='large' onSubmit={handleSubmit}>
                   {props.loginInfo.errors ? <div><h3>{props.loginInfo.user}</h3></div> : null}
                   <Segment stacked>

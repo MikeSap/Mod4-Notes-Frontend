@@ -41,7 +41,7 @@
   text-align: center;
 };
 
-.note-card {
+/* .note-card {
 
 };
 
@@ -49,3 +49,7 @@
   width: 80vw;
   height: 50vh;
 }
+
+.container.note-cards {
+  width: 25vw;
+} */

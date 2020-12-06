@@ -11,10 +11,16 @@ const NotesContainer = (props) => {
 
     const [visible, setVisible] = React.useState(true)
     const [sortBy, setSortBy] = React.useState('updated')
+    const [page, setPage] = React.useState(1)
+    const [searchBar, setSearchBar] = React.useState('')
+    const [totalPages, setTotalPages] = React.useState(Math.floor(props.notes.length/12) + 1)
 
+    const search = (e) => {
+        setSearchBar(e.target.value)
+    }
 
-    const pageChange = (e) => {
-        debugger
+    const pageChange = (e, { activePage }) => {
+        setPage(activePage)
     }
 
     const handleSortBy = (e) => {       
@@ -28,11 +34,21 @@ const NotesContainer = (props) => {
     }
 
     const noteSort = () => {
-        let notes = [...props.notes]
-        
-        // switch(){
 
+        // Get this to sort everything, then search, then paginate? 
+        let notes = [...props.notes]
+
+        notes = notes.filter(n => n.title.toUpperCase().includes(searchBar.toUpperCase()))
+        
+        // Get the pages to refelct how many search results
+        // if(searchBar !== ''){
+        //     setTotalPages(Math.floor(notes.length/12) + 1)
         // }
+
+        notes = page === 1 ? notes.slice(0,12) 
+        : notes.slice((page - 1) * 12, page * 12)
+
+        
 
         switch(sortBy){
             case "title":
@@ -80,7 +96,7 @@ const NotesContainer = (props) => {
               width='wide'
             >
               <Menu.Item as='a'>
-                  <input type="text"/>
+                  <input type="text" value={searchBar} onChange={search}/>
                 Search
               </Menu.Item>
               <Menu.Item as='a'
@@ -108,7 +124,7 @@ const NotesContainer = (props) => {
 
  {/*PAGE CONTENT  */}
         <Sidebar.Pusher>  
-        <Container > 
+        <Container className='note-card'> 
                 <Card.Group centered>
                     {location.includes(props.showNote.id) ? <Note {...props.showNote} key={props.showNote.id}/>
                     :
@@ -119,7 +135,7 @@ const NotesContainer = (props) => {
                     <Segment textAlign='center'>               
                         <Pagination
                             defaultActivePage={1}
-                            totalPages={Math.floor(props.notes.length/12) + 1}
+                            totalPages={totalPages}
                             onPageChange={pageChange}
                         />
                     </Segment>}

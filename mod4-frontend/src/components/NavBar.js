@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Menu } from 'semantic-ui-react'
+import { Button, Menu, Icon } from 'semantic-ui-react'
 import { useHistory } from "react-router";
 import { logout } from '../actions'
 import { connect } from 'react-redux'
@@ -25,7 +25,9 @@ const NavBar = (props) => {
            
             {location.includes('signup') || location.includes('login') ? null :
             <Menu.Item position='right'>
-            <Button onClick={props.logout} primary>Sign Out</Button>           
+            <Button onClick={props.logout} primary>
+            <Icon name='sign-out' />
+            Sign Out</Button>           
             </Menu.Item>}
 
         </Menu>

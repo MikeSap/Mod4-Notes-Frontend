@@ -10,25 +10,26 @@ const NotesContainer = (props) => {
     const location = history.location.pathname
     let notes = [...props.notes]
 
+
     const pageChange = (e) => {
         debugger
     }
-    return ( 
-        
-        <Container>            
-            <Card.Group centered>
-                {location.includes(props.showNote.id) ? <Note {...props.showNote} key={props.showNote.id}/>
-                :
-                notes.map(note => <Note {...note} key={note.id}/>)}                
-            </Card.Group>
-            {location.includes(props.showNote.id) ? null :
-            <Segment textAlign='center'>               
-                <Pagination
-                    defaultActivePage={1}
-                    totalPages={Math.floor(props.notes.length/12) + 1}
-                    onPageChange={pageChange}
-                    />
-            </Segment>}        
+    return (         
+        <Container > 
+                <Card.Group centered>
+                    {location.includes(props.showNote.id) ? <Note {...props.showNote} key={props.showNote.id}/>
+                    :
+                    notes.map(note => <Note {...note} key={note.id}/>)}                
+                </Card.Group>
+                    
+                    {location.includes(props.showNote.id) ? null :
+                    <Segment textAlign='center'>               
+                        <Pagination
+                            defaultActivePage={1}
+                            totalPages={Math.floor(props.notes.length/12) + 1}
+                            onPageChange={pageChange}
+                        />
+                    </Segment>}
         </Container>
     );
 }

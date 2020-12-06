@@ -29,7 +29,7 @@ const Login = (props) => {
         });
       }
         return(
-          <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+          <Grid textAlign='center' style={{ height: '50vh' }} verticalAlign='middle'>
             <Grid.Column style={{ maxWidth: 450 }}>
 
               {/* HOW DO I MAKE THIS CLEANER ALL I NEED TO DO IS CHANGE THE TEXT INSIDE OF HEADER */}

@@ -39,10 +39,10 @@ const Note = (props) => {
     
     return(       
          
-            <Card className="card">
-                <Card.Content > 
+            <Card >
+                <Card.Content> 
                     <Accordion styled>
-                    <Accordion.Title
+                    <Accordion.Title className="card-title"
                     active={ activeIndex === 0}
                     index={0}
                     onClick={acc}
@@ -50,13 +50,14 @@ const Note = (props) => {
                 <Icon name='dropdown' />
                 {title}
                 </Accordion.Title>
-                <Accordion.Content active={ activeIndex === 0}>
+                <Accordion.Content active={ activeIndex === 0} className="card-content">
                 <p>{content}</p>
                 </Accordion.Content>
                 </Accordion>
                 </Card.Content>
                 <div className="ui two buttons">
                     <Button 
+                    fluid
                     onClick={() =>  {                        
                         history.push(`/note/edit/${id}`)
                         props.setEditNote({content, title, id})
@@ -65,6 +66,7 @@ const Note = (props) => {
                         Edit
                     </Button>
                     <Button 
+                    fluid
                     onClick={() => {
                         props.deleteNote(id)
                         history.push('/notes')

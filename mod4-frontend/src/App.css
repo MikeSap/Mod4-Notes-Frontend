@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+
+.card-title {
+  text-align: center;
+};
+
+.note-card {
+
+};
+
+.notes-container {
+  width: 80vw;
+  height: 50vh;
+}

@@ -39,7 +39,7 @@ const Note = (props) => {
     
     return(       
          
-            <Card >
+            <Card style={{margin: "25px"}}>
                 <Card.Content> 
                     <Accordion styled>
                     <Accordion.Title className="card-title"

@@ -21,6 +21,14 @@ const Login = (props) => {
           password_confirmation: ''
         })
       }
+
+      // const onSignIn = (googleUser) => {
+      //   var profile = googleUser.getBasicProfile();
+      //   console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+      //   console.log('Name: ' + profile.getName());
+      //   console.log('Image URL: ' + profile.getImageUrl());
+      //   console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+      // }
     
     const handleChange = (e) => {
         setFormData({
@@ -62,7 +70,10 @@ const Login = (props) => {
                     : null }
                     <Button type="submit">Submit</Button>
                   </Segment>
-
+                  {/* All this does is sign in with google but it isnt stored anywhere, cant figure out how to get the return of that */}
+                  {/* <div class="g-signin2" data-onsuccess="onSignIn">
+                    <button />
+                  </div> */}
                 </Form>
                 
                 {location.includes('signup') ? null : 

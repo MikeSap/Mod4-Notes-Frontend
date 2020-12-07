@@ -1,6 +1,6 @@
 import Note from '../components/Note'
 import { connect } from 'react-redux'
-import { Card, Container, Checkbox, Pagination, Grid, Icon, Menu, Segment, Sidebar } from 'semantic-ui-react'
+import { Button, Card, Container, Pagination, Grid, Icon, Menu, Segment, Sidebar } from 'semantic-ui-react'
 import { useHistory } from "react-router";
 import React from 'react'
 
@@ -9,15 +9,19 @@ const NotesContainer = (props) => {
     const history = useHistory()
     const location = history.location.pathname
 
-    const [visible, setVisible] = React.useState(true)
+    const [visible, setVisible] = React.useState(false)
     const [sortBy, setSortBy] = React.useState('updated')
 
     const [page, setPage] = React.useState(1)
     const [searchBar, setSearchBar] = React.useState('')
+    const [searchBarC, setSearchBarC] = React.useState('')
     const [totalPages, setTotalPages] = React.useState(Math.floor(props.notes.length/12) + 1)
 
     const searchChange = (e) => {
         setSearchBar(e.target.value)
+    }
+    const searchChangeC = (e) => {
+        setSearchBarC(e.target.value)
     }
 
     const pageChange = (e, { activePage }) => {
@@ -36,9 +40,7 @@ const NotesContainer = (props) => {
 
     const noteSort = () => {
 
-        let notes = [...props.notes]
-        
-   
+        let notes = [...props.notes]    
 
         if(sortBy === "title"){
                 notes.sort( (noteA, noteB ) => noteA.title[0].toUpperCase() < noteB.title[0].toUpperCase() ? -1 : 1)
@@ -55,15 +57,16 @@ const NotesContainer = (props) => {
             }
 
         notes = notes.filter(n => n.title.toUpperCase().includes(searchBar.toUpperCase()))
+        notes = notes.filter(n => n.content.toUpperCase().includes(searchBarC.toUpperCase()))
 
         notes = page === 1 ? notes.slice(0,12) 
         : notes.slice((page - 1) * 12, page * 12)
 
         // Get the pages to refelct how many search results
 
-        // if(searchBar !== ''){
-        //     setTotalPages(Math.floor(notes.length/12) + 1)
-        // }     
+        if(searchBar !== ''){
+            setTotalPages(Math.floor(notes.length/12) + 1)
+        }  
 
         return notes
     }
@@ -71,16 +74,8 @@ const NotesContainer = (props) => {
     const notesToShow = noteSort()
 
     return (  
-    // VISIBILITY CHECKBOX REMOVE THIS WHEN YOU ADD A HOVER BUTTON
-        <Grid columns={1}>
-        <Grid.Column>
-          <Checkbox
-            checked={visible}
-            onChange={(e, data) => setVisible(data.checked)}
-          />
-        </Grid.Column>
-
-  {/* SIDEBAR */}
+    <Grid columns={1}>
+{/* SideBar */}
         <Grid.Column>
           <Sidebar.Pushable as={Segment}>
             <Sidebar
@@ -98,6 +93,11 @@ const NotesContainer = (props) => {
               <Menu.Item as='a'
               fitted='horizontally'>
                   <input type="text" placeholder='search titles' value={searchBar} onChange={searchChange}/>
+              </Menu.Item>
+
+              <Menu.Item as='a'
+              fitted='horizontally'>
+                  <input type="text" placeholder='search content' value={searchBarC} onChange={searchChangeC}/>
               </Menu.Item>
 
               <Menu.Item as='a'
@@ -128,7 +128,18 @@ const NotesContainer = (props) => {
 
  {/*PAGE CONTENT  */}
         <Sidebar.Pusher>  
-        <Container className='note-card'> 
+        <Container 
+        className='note-card'
+        > 
+        
+        {location === '/notes' ?
+        <Button className='sort-button' 
+        color='black' fluid icon size="big" circular
+        onClick={() => setVisible(!visible)}>
+            <Icon name='bars' />
+        </Button>  
+        : null}
+
                 <Card.Group centered>
                     {location.includes(props.showNote.id) ? <Note {...props.showNote} key={props.showNote.id}/>
                     :

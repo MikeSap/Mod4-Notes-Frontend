@@ -15,11 +15,13 @@ export const login = (user) => {
              dispatch({type: "LOGIN_ERROR", errors: user.errors})
              :
              dispatch({ type: "LOGGED_IN", user })
+            //  window.localStorage.setItem("userId", user.id)
          })
     }
 }
 
 export const logout = () => {
+    // window.localStorage.removeItem("userId")
     return {
         type: 'LOGOUT',
         username: "",

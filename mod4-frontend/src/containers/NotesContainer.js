@@ -128,7 +128,7 @@ const NotesContainer = (props) => {
 
  {/*PAGE CONTENT  */}
         <Sidebar.Pusher>  
-        <Container 
+        <Container style={{minHeight: '80vh'}}
         className='note-card'
         > 
         

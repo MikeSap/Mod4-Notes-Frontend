@@ -11,11 +11,12 @@ const NotesContainer = (props) => {
 
     const [visible, setVisible] = React.useState(true)
     const [sortBy, setSortBy] = React.useState('updated')
+
     const [page, setPage] = React.useState(1)
     const [searchBar, setSearchBar] = React.useState('')
     const [totalPages, setTotalPages] = React.useState(Math.floor(props.notes.length/12) + 1)
 
-    const search = (e) => {
+    const searchChange = (e) => {
         setSearchBar(e.target.value)
     }
 
@@ -35,39 +36,36 @@ const NotesContainer = (props) => {
 
     const noteSort = () => {
 
-        // Get this to sort everything, then search, then paginate? 
         let notes = [...props.notes]
+        
+   
+
+        if(sortBy === "title"){
+                notes.sort( (noteA, noteB ) => noteA.title[0].toUpperCase() < noteB.title[0].toUpperCase() ? -1 : 1)
+            } else if (sortBy === "title_ASC"){
+                notes.sort( (noteA, noteB ) => noteA.title[0].toUpperCase() > noteB.title[0].toUpperCase() ? -1 : 1)
+            } else if (sortBy === "updated"){
+                notes.sort( (noteA, noteB ) => noteA.updated_at < noteB.updated_at ? -1 : 1) 
+            } else if (sortBy === "updated_ASC"){
+                notes.sort( (noteA, noteB ) => noteA.updated_at > noteB.updated_at ? -1 : 1) 
+            } else if (sortBy === "created"){
+                notes.sort( (noteA, noteB ) => noteA.created_at < noteB.created_at ? -1 : 1) 
+            } else if (sortBy === "created_ASC"){
+                notes.sort( (noteA, noteB ) => noteA.created_at > noteB.created_at ? -1 : 1) 
+            }
 
         notes = notes.filter(n => n.title.toUpperCase().includes(searchBar.toUpperCase()))
-        
-        // Get the pages to refelct how many search results
-        // if(searchBar !== ''){
-        //     setTotalPages(Math.floor(notes.length/12) + 1)
-        // }
 
         notes = page === 1 ? notes.slice(0,12) 
         : notes.slice((page - 1) * 12, page * 12)
 
-        
+        // Get the pages to refelct how many search results
 
-        switch(sortBy){
-            case "title":
-                return notes.sort( (noteA, noteB ) => noteA.title[0].toUpperCase() < noteB.title[0].toUpperCase() ? -1 : 1)
-            case "title_ASC":
-                return notes.sort( (noteA, noteB ) => noteA.title[0].toUpperCase() > noteB.title[0].toUpperCase() ? -1 : 1)
-            case "updated":
-                return notes.sort( (noteA, noteB ) => noteA.updated_at < noteB.updated_at ? -1 : 1) 
-            case "updated_ASC":
-                return notes.sort( (noteA, noteB ) => noteA.updated_at > noteB.updated_at ? -1 : 1) 
-            case "created":
-                // IS THIS SORTING?
-                return notes.sort( (noteA, noteB ) => noteA.created_at < noteB.created_at ? -1 : 1) 
-            case "created_ASC":
-                return notes.sort( (noteA, noteB ) => noteA.created_at < noteB.created_at ? -1 : 1) 
-            
-            default:
-                return notes
-        }
+        // if(searchBar !== ''){
+        //     setTotalPages(Math.floor(notes.length/12) + 1)
+        // }     
+
+        return notes
     }
 
     const notesToShow = noteSort()
@@ -94,11 +92,14 @@ const NotesContainer = (props) => {
               vertical
               visible={visible}
               width='wide'
+            //   direction='top'
+            //   animation='scale down'
             >
-              <Menu.Item as='a'>
-                  <input type="text" value={searchBar} onChange={search}/>
-                Search
+              <Menu.Item as='a'
+              fitted='horizontally'>
+                  <input type="text" placeholder='search titles' value={searchBar} onChange={searchChange}/>
               </Menu.Item>
+
               <Menu.Item as='a'
               data-sort="title"
               onClick={handleSortBy}>
@@ -106,6 +107,7 @@ const NotesContainer = (props) => {
                 {sortBy === "title" ? <Icon name="sort up"/> : null } 
                 {sortBy === "title_ASC" ? <Icon name="sort down"/> : null }
               </Menu.Item>
+
               <Menu.Item as='a'
               data-sort="updated"
               onClick={handleSortBy}>
@@ -113,6 +115,7 @@ const NotesContainer = (props) => {
                 {sortBy === "updated" ? <Icon name="sort up"/> : null } 
                 {sortBy === "updated_ASC" ? <Icon name="sort down"/> : null }
               </Menu.Item>
+
               <Menu.Item as='a'
               data-sort="created"
               onClick={handleSortBy}>
@@ -120,6 +123,7 @@ const NotesContainer = (props) => {
                 {sortBy === "created" ? <Icon name="sort up"/> : null } 
                 {sortBy === "created_ASC" ? <Icon name="sort down"/> : null }
               </Menu.Item>
+              
             </Sidebar>
 
  {/*PAGE CONTENT  */}

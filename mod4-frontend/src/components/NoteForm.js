@@ -51,16 +51,22 @@ const NoteForm = (props) => {
         return ( 
           <Grid textAlign='center' style={{ height: '50vh' }} verticalAlign='middle'>
              <Grid.Column style={{ maxWidth: 450 }}>
+              
               <Header>
               {location.includes("edit")? "edit note" :  "add note" }
               </Header>
+
               <Form size="large" onSubmit={handleSubmit}>  
                 <Segment stacked>              
+                  
                   <Form.Field>
                     <input type="text" name="title" placeholder="title" onChange={handleChange} value={formData.title}/>
                   </Form.Field>
+                  
                   <TextArea name="content" placeholder="content" onChange={handleChange} value={formData.content}/>
+                  
                   <Button type="submit">Submit</Button>
+                
                 </Segment>
               </Form>
             </Grid.Column>

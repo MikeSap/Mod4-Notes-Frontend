@@ -13,7 +13,6 @@
 //          .then(postedNote => {
 //              dispatch({ type: "NEW_NOTE", note: postedNote})
 //          })
-//     //  .catch()    
 //     }
 // }
 
@@ -48,9 +47,28 @@
 //     }
 // }
 
-// export const setEditedNote = (note) => {
+// export const setEditNote = (note) => {
 //     return {
-//         type: "SET_EDITED_NOTE",
+//         type: "SET_EDIT_NOTE",
 //         note
+//     }
+// }
+
+// export const clearEditNote = (note) => {
+//     return {
+//         type: "CLEAR_EDIT_NOTE",
+//     }
+// }
+
+// export const setShowNote = (note) => {
+//     return {
+//         type: "SET_SHOW_NOTE",
+//         note
+//     }
+// }
+
+// export const clearShowNote = (note) => {
+//     return {
+//         type: "CLEAR_SHOW_NOTE",
 //     }
 // }

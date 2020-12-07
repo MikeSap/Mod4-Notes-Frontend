@@ -1,16 +1,20 @@
 import React, { useState } from 'react'
-import { Button, Card, Accordion, Icon } from 'semantic-ui-react'
+import { Button, Card, Accordion, Icon, Image } from 'semantic-ui-react'
 import { deleteNote, setEditNote, setShowNote, clearShowNote } from '../actions'
 import { connect } from 'react-redux'
 import { useHistory } from "react-router"
 
 const Note = (props) => {
-    const {content, title, id, updated_at} = props
+    
+    const {content, title, id, updated_at, photo} = props
+    let photoUrl= `http://localhost:3000${photo}`
+    
     const history = useHistory()
     const location = history.location.pathname
 
     const [activeIndex, setActiveIndex] = useState(location.includes(id) ? 0 : -1 )
 
+    
     const backToNotes = () => {
         history.push(`/notes`)
         props.clearShowNote()
@@ -18,7 +22,7 @@ const Note = (props) => {
 
     const toShowPage = () => {
         history.push(`/notes/${id}`)
-        props.setShowNote({title, content, id, updated_at})    
+        props.setShowNote({title, content, id, updated_at, photo})    
     }
 
     const acc = (e, titleProps) => {
@@ -36,7 +40,6 @@ const Note = (props) => {
     //     props.deleteNote(id)
     //     location.includes(id) ? history.push('/notes') : null
     //   }
-    
     return(       
          
             <Card style={{margin: "25px"}}>
@@ -52,6 +55,7 @@ const Note = (props) => {
                 </Accordion.Title>
                 <Accordion.Content active={ activeIndex === 0} className="card-content">
                 <p>{content}</p>
+                {photo ? <Image src={photoUrl} size='mini' wrapped ui={false} /> : null }
                 </Accordion.Content>
                 </Accordion>
                 <Card.Meta>Date: {props.updated_at.split('T')[0]}  Time: {props.updated_at.split('T')[1].split('.')[0]}</Card.Meta>
@@ -61,7 +65,7 @@ const Note = (props) => {
                     fluid
                     onClick={() =>  {                        
                         history.push(`/note/edit/${id}`)
-                        props.setEditNote({content, title, id})
+                        props.setEditNote({content, title, id, photo})
                     }}
                     basic color='green'>
                         Edit

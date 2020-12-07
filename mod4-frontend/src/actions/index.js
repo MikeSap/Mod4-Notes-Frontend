@@ -52,13 +52,17 @@ export const signup = (user) => {
 export const newNote = (note) => {
     return (dispatch) => {
         dispatch({ type: "POSTING_NOTE" })
+    
+        const data = new FormData()
+        Object.keys(note).forEach((key, value) => {
+            data.append(key, note[key])
+        })
         
         fetch(`http://localhost:3000/notes`,{ 
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
             },
-            body: JSON.stringify(note)
+            body: data
          })
          .then(resp => resp.json())
          .then(postedNote => {
@@ -70,14 +74,17 @@ export const newNote = (note) => {
 export const editNote = (note) => {
     return (dispatch) => {
         dispatch({ type: "POSTING_NOTE" })
+
+        const data = new FormData()
+        Object.keys(note).forEach((key, value) => {
+            data.append(key, note[key])
+        })
         
         fetch(`http://localhost:3000/notes/${note.note_id}`,{ 
             method: "PATCH",
             headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json" 
             },
-            body: JSON.stringify(note)
+            body: data
          })
          .then(resp => resp.json())
          .then(editedNote => {

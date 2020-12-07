@@ -47,13 +47,13 @@ const NotesContainer = (props) => {
             } else if (sortBy === "title_ASC"){
                 notes.sort( (noteA, noteB ) => noteA.title[0].toUpperCase() > noteB.title[0].toUpperCase() ? -1 : 1)
             } else if (sortBy === "updated"){
-                notes.sort( (noteA, noteB ) => noteA.updated_at < noteB.updated_at ? -1 : 1) 
-            } else if (sortBy === "updated_ASC"){
                 notes.sort( (noteA, noteB ) => noteA.updated_at > noteB.updated_at ? -1 : 1) 
+            } else if (sortBy === "updated_ASC"){
+                notes.sort( (noteA, noteB ) => noteA.updated_at < noteB.updated_at ? -1 : 1) 
             } else if (sortBy === "created"){
-                notes.sort( (noteA, noteB ) => noteA.created_at < noteB.created_at ? -1 : 1) 
-            } else if (sortBy === "created_ASC"){
                 notes.sort( (noteA, noteB ) => noteA.created_at > noteB.created_at ? -1 : 1) 
+            } else if (sortBy === "created_ASC"){
+                notes.sort( (noteA, noteB ) => noteA.created_at < noteB.created_at ? -1 : 1) 
             }
 
         notes = notes.filter(n => n.title.toUpperCase().includes(searchBar.toUpperCase()))

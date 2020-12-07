@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { useHistory } from "react-router"
 
 const Note = (props) => {
-    const {content, title, id} = props
+    const {content, title, id, updated_at} = props
     const history = useHistory()
     const location = history.location.pathname
 
@@ -18,7 +18,7 @@ const Note = (props) => {
 
     const toShowPage = () => {
         history.push(`/notes/${id}`)
-        props.setShowNote({title, content, id})    
+        props.setShowNote({title, content, id, updated_at})    
     }
 
     const acc = (e, titleProps) => {
@@ -54,6 +54,7 @@ const Note = (props) => {
                 <p>{content}</p>
                 </Accordion.Content>
                 </Accordion>
+                <Card.Meta>Date: {props.updated_at.split('T')[0]}  Time: {props.updated_at.split('T')[1].split('.')[0]}</Card.Meta>
                 </Card.Content>
                 <div className="ui two buttons">
                     <Button 

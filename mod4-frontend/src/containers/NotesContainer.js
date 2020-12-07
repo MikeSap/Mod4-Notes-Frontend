@@ -64,9 +64,9 @@ const NotesContainer = (props) => {
 
         // Get the pages to refelct how many search results
 
-        if(searchBar !== ''){
-            setTotalPages(Math.floor(notes.length/12) + 1)
-        }  
+        // if(searchBar !== ''){
+        //     setTotalPages(Math.floor(notes.length/12) + 1)
+        // }  
 
         return notes
     }

@@ -1,6 +1,6 @@
 import Note from '../components/Note'
 import { connect } from 'react-redux'
-import { Button, Card, Container, Pagination, Grid, Icon, Menu, Segment, Sidebar } from 'semantic-ui-react'
+import { Button, Card, Container, Pagination, Grid, Icon, Loader, Menu, Segment, Sidebar } from 'semantic-ui-react'
 import { useHistory } from "react-router";
 import React, { useEffect } from 'react'
 
@@ -16,7 +16,6 @@ const NotesContainer = (props) => {
     const [searchBar, setSearchBar] = React.useState('')
     const [searchBarC, setSearchBarC] = React.useState('')
     const [totalPages, setTotalPages] = React.useState(Math.floor(props.notes.length/12) + 1)
-
     
     useEffect(() => {
         setTotalPages(Math.floor(props.notes.length/12) + 1)
@@ -132,8 +131,12 @@ const NotesContainer = (props) => {
             </Sidebar>
 
  {/*PAGE CONTENT  */}
-        <Sidebar.Pusher>  
-        <Container style={{minHeight: '80vh'}}> 
+        <Sidebar.Pusher
+        style={{backgroundImage: `url(https://media.giphy.com/media/26AHMBTzc1qJgFfDW/giphy.gif)`,backgroundSize: 'cover'}}> 
+
+        {props.loading ? <Loader active /> : null}
+ 
+        <Container style={{minHeight: '80vh'}} > 
         
         {location === '/notes' ?
         <Button className='sort-button' 
@@ -152,13 +155,16 @@ const NotesContainer = (props) => {
                 </Card.Group>
 
                     {location.includes(props.showNote.id) ? null :
-                    <Segment textAlign='center'>               
+                    // <Segment textAlign='center'
+                    // style={{backgroundImage: `url(https://media.giphy.com/media/26AHMBTzc1qJgFfDW/giphy.gif)`}}>               
                         <Pagination
+                            fluid
+                            style={{justifyContent:"center"}}
                             defaultActivePage={1}
                             totalPages={totalPages}
                             onPageChange={pageChange}
-                        />
-                    </Segment>}
+                        />}
+                    {/* </Segment>} */}
         </Container>
         </Sidebar.Pusher>
 

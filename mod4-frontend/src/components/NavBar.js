@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Menu, Icon } from 'semantic-ui-react'
 import { useHistory } from "react-router";
 import { logout } from '../actions'
@@ -9,10 +9,16 @@ const NavBar = (props) => {
     const history = useHistory()
     const location = history.location.pathname
 
+    const { user } = props
+
     const signOut = () => {
         props.logout()
         history.push('/login')
     }
+
+    useEffect(() => {
+        return
+    }, [user])
 
     return (
         <Menu inverted size='small'>
@@ -39,6 +45,11 @@ const NavBar = (props) => {
     )
 }
 
+const readAccess = state => {
+   return {
+       user: state.user
+   }
+}
 
 
-export default connect(null, { logout })(NavBar)
+export default connect(readAccess, { logout })(NavBar)

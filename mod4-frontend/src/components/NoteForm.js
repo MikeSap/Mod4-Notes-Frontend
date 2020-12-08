@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux'
 import { newNote, editNote } from '../actions/index'
 import { useHistory } from "react-router";
-import { Button, Form, Grid, Header, Label, Segment, TextArea } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Label, Segment, TextArea, Loader } from 'semantic-ui-react'
 
 
 const NoteForm = (props) => {
@@ -66,8 +66,10 @@ const NoteForm = (props) => {
               </Header>
 
               <Form size="large" onSubmit={handleSubmit}>  
-                <Segment stacked>              
-                  
+                <Segment stacked> 
+                             
+                {props.loading ? <Loader active /> : null}
+
                   <Form.Field>
                     <input type="text" name="title" placeholder="title" onChange={handleChange} value={formData.title}/>
                   </Form.Field>

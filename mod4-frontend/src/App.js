@@ -5,7 +5,7 @@ import NoteForm from './components/NoteForm'
 import { connect } from 'react-redux'
 import Login from './components/Login'
 import { Switch, Route,  Redirect } from "react-router-dom"
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { autoLogin } from './actions';
 import { useHistory } from "react-router";
 
@@ -13,12 +13,11 @@ import { useHistory } from "react-router";
 const App = (props) => {
 
   const history = useHistory()
-
-  // const [user, setUser] = useState({})
+  const { autoLogin, user } = props
 
   useEffect(() => {
     const token = localStorage.getItem("token")
-    debugger
+    
     if(token){
       fetch('http://localhost:3000/auto_login', {
         headers: {
@@ -27,10 +26,16 @@ const App = (props) => {
       })
       .then(resp => resp.json())
       .then(user => {
-        props.autoLogin(user)
+        autoLogin(user)
       })
+    } else {
+      history.push('/login')
     }
-  },[])
+  },[autoLogin])
+
+  useEffect(() => {
+    return
+  }, [user])
 
   return (
 
@@ -39,7 +44,7 @@ const App = (props) => {
         
         <Route exact path="/" render={() => {
           return (
-            props.user ?
+            props.user === "" ?
             <Redirect to="/login" /> :
             <Redirect to='/notes' />
           )
@@ -47,10 +52,12 @@ const App = (props) => {
         
         <Route exact path="/login" render={() => {
           return (
+            props.user === "" ?
             <div>
               <NavBar />
               <Login />
-            </div>
+            </div> :
+            <Redirect to='/notes' />            
           )}}/>
 
         <Route exact path="/signup" render={() => {

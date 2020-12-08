@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux'
 import { login, signup } from '../actions'
-import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
+import { Loader, Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 import { useHistory } from "react-router";
 
 const Login = (props) => {
@@ -20,7 +20,7 @@ const Login = (props) => {
           password: '',
           password_confirmation: ''
         })
-        history.push('/notes')
+        // history.push('/notes')
       }
 
       // const onSignIn = (googleUser) => {
@@ -38,11 +38,12 @@ const Login = (props) => {
         });
       }
         return(
+         
           <Grid textAlign='center' style={{ height: '50vh' }} verticalAlign='middle'>
             <Grid.Column style={{ maxWidth: 450 }}>
 
-              {/* HOW DO I MAKE THIS CLEANER ALL I NEED TO DO IS CHANGE THE TEXT INSIDE OF HEADER */}
-              
+            {props.loading ? <Loader active /> : null}
+
               {location.includes('signup') ?
               <Header as='h2' color='black' textAlign='center'>
               Sign-up to FlatNote
@@ -71,10 +72,12 @@ const Login = (props) => {
                     : null }
                     <Button type="submit">Submit</Button>
                   </Segment>
+                  
                   {/* All this does is sign in with google but it isnt stored anywhere, cant figure out how to get the return of that */}
                   {/* <div class="g-signin2" data-onsuccess="onSignIn">
                     <button />
                   </div> */}
+
                 </Form>
                 
                 {location.includes('signup') ? null : 
@@ -90,7 +93,8 @@ const Login = (props) => {
  
 const readAccess = (state) => {
   return {
-    loginInfo: state.login
+    loginInfo: state.login,
+    loading: state.loading
   }
 }
 

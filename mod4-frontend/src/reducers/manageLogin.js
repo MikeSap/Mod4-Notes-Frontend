@@ -12,8 +12,11 @@ export default function manageLogin(state = {
         case 'AUTO_LOG_IN':
             return {user: {username: action.user.username, id: action.user.id}, errors: false}
 
+        case 'AUTO_LOGIN_ERROR':
+        return { user: {username:"", id: ""}, errors:false }
+        
         case 'LOGOUT':
-            return { user: {username:"", id: ""}, errors:false }
+        return { user: {username:"", id: ""}, errors:false }
 
         case 'LOGIN_ERROR':
             return { user: action.errors, errors:true }

@@ -7,35 +7,15 @@ import Login from './components/Login'
 import { Switch, Route,  Redirect } from "react-router-dom"
 import React, { useEffect } from 'react'
 import { autoLogin } from './actions';
-import { useHistory } from "react-router";
 
 
 const App = (props) => {
 
-  const history = useHistory()
-  const { autoLogin, user } = props
+  const { autoLogin } = props
 
   useEffect(() => {
-    const token = localStorage.getItem("token")
-    
-    if(token){
-      fetch('http://localhost:3000/auto_login', {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-      .then(resp => resp.json())
-      .then(user => {
-        autoLogin(user)
-      })
-    } else {
-      history.push('/login')
-    }
+    autoLogin()
   },[autoLogin])
-
-  useEffect(() => {
-    return
-  }, [user])
 
   return (
 
@@ -44,20 +24,18 @@ const App = (props) => {
         
         <Route exact path="/" render={() => {
           return (
-            props.user === "" ?
-            <Redirect to="/login" /> :
-            <Redirect to='/notes' />
+            props.user ?
+            <Redirect to='/notes' /> :
+            <Redirect to='/login' />
           )
         }}/>
         
         <Route exact path="/login" render={() => {
           return (
-            props.user === "" ?
             <div>
               <NavBar />
               <Login />
-            </div> :
-            <Redirect to='/notes' />            
+            </div>          
           )}}/>
 
         <Route exact path="/signup" render={() => {

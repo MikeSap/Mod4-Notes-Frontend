@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux'
 import { newNote, editNote } from '../actions/index'
 import { useHistory } from "react-router";
-import { Button, Form, Grid, Header, Label, Segment, TextArea, Loader } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Label, Segment, TextArea, Loader, Message } from 'semantic-ui-react'
 
 
 const NoteForm = (props) => {
@@ -24,7 +24,7 @@ const NoteForm = (props) => {
           title: "",
           content: ""
         })
-    }, [props.editedNote, location])
+    }, [location, props.editedNote])
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -67,7 +67,8 @@ const NoteForm = (props) => {
 
               <Form size="large" onSubmit={handleSubmit}>  
                 <Segment stacked> 
-                             
+                {props.errors ? props.errors.map(e => <Message negative>{e}</Message>) : null}
+
                 {props.loading ? <Loader active /> : null}
 
                   <Form.Field>
@@ -93,7 +94,8 @@ const NoteForm = (props) => {
 const readAccess = (state) => {
   return {
     userId: state.login.user.id,
-    editedNote: state.editNote
+    editedNote: state.editNote,
+    errors: state.errors.note
   }
 }
 

@@ -28,6 +28,18 @@ export default function manageLoading(state = false, action) {
 
             case 'LOGIN_ERROR':
             return false
+
+            case 'AUTO_LOG_IN':
+              return false
+            
+            case 'AUTO_LOGIN_ERROR':
+            return false
+
+            case("NOTE_ERROR"):
+              return false
+
+            case("SIGUP_PAGE"):
+              return false
             
             default:
               return state;

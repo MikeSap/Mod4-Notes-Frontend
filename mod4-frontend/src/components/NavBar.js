@@ -7,17 +7,15 @@ import { connect } from 'react-redux'
 const NavBar = (props) => {
 
     const history = useHistory()
-    const location = history.location.pathname
+    // const location = history.location.pathname
 
     const { user } = props
 
     const signOut = () => {
         props.logout()
-        history.push('/login')
     }
 
     useEffect(() => {
-        return
     }, [user])
 
     return (
@@ -28,13 +26,13 @@ const NavBar = (props) => {
             onClick={() => history.push('/')}
             />            
 
-            {location.includes('signup') || location.includes('login') ? null :
+            {!user.id ? null :
             <Menu.Item
             name="New Note"
             onClick={() => history.push('/notes/new')}
             />}
            
-            {location.includes('signup') || location.includes('login') ? null :
+            {!user.id ? null :
             <Menu.Item position='right'>
             <Button onClick={() => signOut()} primary>
             <Icon name='sign-out' />
@@ -47,7 +45,7 @@ const NavBar = (props) => {
 
 const readAccess = state => {
    return {
-       user: state.user
+       user: state.login.user
    }
 }
 

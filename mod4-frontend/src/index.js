@@ -3,12 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom'
+import { Router } from 'react-router-dom'
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import rootReducer from './reducers'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension';
+import history from './history'
 
 import 'semantic-ui-css/semantic.min.css'
 
@@ -19,11 +20,11 @@ const store = createStore(rootReducer, composeWithDevTools(
 
 ReactDOM.render(
   <Provider store={store}>
-  <BrowserRouter>
+  <Router history={history}>
   <React.StrictMode>
     <App />
   </React.StrictMode>
-  </BrowserRouter>
+  </Router>
   </Provider>,
   document.getElementById('root')
 );

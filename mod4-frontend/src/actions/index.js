@@ -48,18 +48,20 @@ export const signup = (user) => {
          })
          .then(resp => resp.json())
          .then(user => {
+             debugger
              user.errors ?
              dispatch({type: "LOGIN_ERROR", errors: user.errors})
              :
              dispatch({ type: "LOGGED_IN", user })
+             localStorage.setItem("token", user.jwt)
          })
     }
 }
 
 export const newNote = (note) => {
     return (dispatch) => {
+
         dispatch({ type: "POSTING_NOTE" })
-    
         const data = new FormData()
         Object.keys(note).forEach((key, value) => {
             data.append(key, note[key])

@@ -20,6 +20,7 @@ const Login = (props) => {
           password: '',
           password_confirmation: ''
         })
+        history.push('/notes')
       }
 
       // const onSignIn = (googleUser) => {

@@ -5,13 +5,20 @@ import NoteForm from './components/NoteForm'
 import { connect } from 'react-redux'
 import Login from './components/Login'
 import { Switch, Route,  Redirect } from "react-router-dom"
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { autoLogin } from './actions';
+import { useHistory } from "react-router";
+
 
 const App = (props) => {
 
+  const history = useHistory()
+
+  // const [user, setUser] = useState({})
+
   useEffect(() => {
     const token = localStorage.getItem("token")
+    debugger
     if(token){
       fetch('http://localhost:3000/auto_login', {
         headers: {
@@ -25,36 +32,21 @@ const App = (props) => {
     }
   },[])
 
-  // const loggedIn = () => {
-  //   document.title = `You are logged in as ${props.user}`
-  //   history.push('/notes')
-  // }
-
-  // const notLoggedIn = () => {
-  //   document.title ='You are not logged in'
-  //   history.push('/login')
-  // }
-
   return (
+
     <div>
       <Switch>
         
         <Route exact path="/" render={() => {
           return (
-            // props.user ?
-            <Redirect to="/notes" />
-            // :
-            // <div>
-            // <Redirect to="/login" />
-            // </div>
+            props.user ?
+            <Redirect to="/login" /> :
+            <Redirect to='/notes' />
           )
         }}/>
         
         <Route exact path="/login" render={() => {
           return (
-            // props.user ?
-            // <Redirect to="/notes" />
-            // :
             <div>
               <NavBar />
               <Login />
@@ -71,46 +63,34 @@ const App = (props) => {
         
         <Route exact path="/notes" render={() => {
            return (
-            // props.user ?
             <div>
               <NavBar />
               <NotesContainer /> 
             </div>
-            // :
-            // <Redirect to="/login" />
             )}}/>
 
         <Route exact path="/notes/new" render={() => {
            return (
-            // props.user ?
             <div>
               <NavBar />
               <NoteForm /> 
             </div>
-            // :
-            // <Redirect to="/login" />
             )}}/>
         
         <Route exact path="/note/edit/:id" render={() => {
            return (
-            // props.user ?
             <div>
               <NavBar />
               <NoteForm /> 
             </div>
-            // :
-            // <Redirect to="/login" />
             )}}/>
         
         <Route exact path="/notes/:id" render={() => {
           return (
-            // props.user ?
             <div>
               <NavBar />
               <NotesContainer /> 
             </div>
-            // :
-            // <Redirect to="/login" />
             )}}/>
 
       </Switch>

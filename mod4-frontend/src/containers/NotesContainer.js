@@ -2,7 +2,7 @@ import Note from '../components/Note'
 import { connect } from 'react-redux'
 import { Button, Card, Container, Pagination, Grid, Icon, Menu, Segment, Sidebar } from 'semantic-ui-react'
 import { useHistory } from "react-router";
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const NotesContainer = (props) => {
 
@@ -17,6 +17,11 @@ const NotesContainer = (props) => {
     const [searchBarC, setSearchBarC] = React.useState('')
     const [totalPages, setTotalPages] = React.useState(Math.floor(props.notes.length/12) + 1)
 
+    
+    useEffect(() => {
+        setTotalPages(Math.floor(props.notes.length/12) + 1)
+    }, [props.notes])
+    
     const searchChange = (e) => {
         setSearchBar(e.target.value)
     }

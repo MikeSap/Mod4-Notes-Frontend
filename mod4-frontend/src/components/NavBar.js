@@ -9,6 +9,11 @@ const NavBar = (props) => {
     const history = useHistory()
     const location = history.location.pathname
 
+    const signOut = () => {
+        props.logout()
+        history.push('/login')
+    }
+
     return (
         <Menu inverted size='small'>
         
@@ -25,7 +30,7 @@ const NavBar = (props) => {
            
             {location.includes('signup') || location.includes('login') ? null :
             <Menu.Item position='right'>
-            <Button onClick={props.logout} primary>
+            <Button onClick={() => signOut()} primary>
             <Icon name='sign-out' />
             Sign Out</Button>           
             </Menu.Item>}

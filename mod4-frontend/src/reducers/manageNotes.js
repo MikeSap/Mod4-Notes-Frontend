@@ -12,7 +12,10 @@ let notes = state
         return [...state, action.note] 
 
         case("LOGGED_IN"):
-        return [...action.user.notes]
+            return [...action.user.user.notes]
+
+        case 'AUTO_LOG_IN':
+            return [...action.user.notes]
 
         case 'LOGOUT':
             return []

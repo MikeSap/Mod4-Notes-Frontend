@@ -73,7 +73,7 @@ const NotesContainer = (props) => {
 
     const notesToShow = noteSort()
 
-    return (  
+    return (
     <Grid columns={1}>
 {/* SideBar */}
         <Grid.Column>
@@ -128,9 +128,7 @@ const NotesContainer = (props) => {
 
  {/*PAGE CONTENT  */}
         <Sidebar.Pusher>  
-        <Container style={{minHeight: '80vh'}}
-        className='note-card'
-        > 
+        <Container style={{minHeight: '80vh'}}> 
         
         {location === '/notes' ?
         <Button className='sort-button' 
@@ -141,11 +139,13 @@ const NotesContainer = (props) => {
         : null}
 
                 <Card.Group centered>
+
                     {location.includes(props.showNote.id) ? <Note {...props.showNote} key={props.showNote.id}/>
                     :
-                    notesToShow.map(note => <Note {...note} key={note.id}/>)}                
+                    notesToShow.map(note => <Note {...note} key={note.id}/>)}    
+
                 </Card.Group>
-                    
+
                     {location.includes(props.showNote.id) ? null :
                     <Segment textAlign='center'>               
                         <Pagination

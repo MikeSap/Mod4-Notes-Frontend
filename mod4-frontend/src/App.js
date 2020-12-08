@@ -5,16 +5,25 @@ import NoteForm from './components/NoteForm'
 import { connect } from 'react-redux'
 import Login from './components/Login'
 import { Switch, Route,  Redirect } from "react-router-dom"
-// import React, { useEffect } from 'react'
-// import { useHistory } from "react-router";
+import React, { useEffect } from 'react'
+import { autoLogin } from './actions';
 
 const App = (props) => {
 
-  // const history = useHistory()
-
-  // useEffect(() => {
-  //   props.user ? loggedIn() : notLoggedIn()
-  // },[history.location])
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    if(token){
+      fetch('http://localhost:3000/auto_login', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(resp => resp.json())
+      .then(user => {
+        props.autoLogin(user)
+      })
+    }
+  },[])
 
   // const loggedIn = () => {
   //   document.title = `You are logged in as ${props.user}`
@@ -32,20 +41,20 @@ const App = (props) => {
         
         <Route exact path="/" render={() => {
           return (
-            props.user ?
+            // props.user ?
             <Redirect to="/notes" />
-            :
-            <div>
-            <Redirect to="/login" />
-            </div>
+            // :
+            // <div>
+            // <Redirect to="/login" />
+            // </div>
           )
         }}/>
         
         <Route exact path="/login" render={() => {
           return (
-            props.user ?
-            <Redirect to="/notes" />
-            :
+            // props.user ?
+            // <Redirect to="/notes" />
+            // :
             <div>
               <NavBar />
               <Login />
@@ -62,46 +71,46 @@ const App = (props) => {
         
         <Route exact path="/notes" render={() => {
            return (
-            props.user ?
+            // props.user ?
             <div>
               <NavBar />
               <NotesContainer /> 
             </div>
-            :
-            <Redirect to="/login" />
+            // :
+            // <Redirect to="/login" />
             )}}/>
 
         <Route exact path="/notes/new" render={() => {
            return (
-            props.user ?
+            // props.user ?
             <div>
               <NavBar />
               <NoteForm /> 
             </div>
-            :
-            <Redirect to="/login" />
+            // :
+            // <Redirect to="/login" />
             )}}/>
         
         <Route exact path="/note/edit/:id" render={() => {
            return (
-            props.user ?
+            // props.user ?
             <div>
               <NavBar />
               <NoteForm /> 
             </div>
-            :
-            <Redirect to="/login" />
+            // :
+            // <Redirect to="/login" />
             )}}/>
         
         <Route exact path="/notes/:id" render={() => {
           return (
-            props.user ?
+            // props.user ?
             <div>
               <NavBar />
               <NotesContainer /> 
             </div>
-            :
-            <Redirect to="/login" />
+            // :
+            // <Redirect to="/login" />
             )}}/>
 
       </Switch>
@@ -117,4 +126,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps,null)(App); 
+export default connect(mapStateToProps, ({ autoLogin }))(App); 

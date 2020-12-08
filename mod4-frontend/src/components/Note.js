@@ -13,7 +13,6 @@ const Note = (props) => {
     const location = history.location.pathname
 
     const [activeIndex, setActiveIndex] = useState(location.includes(id) ? 0 : -1 )
-
     
     const backToNotes = () => {
         history.push(`/notes`)
@@ -36,13 +35,11 @@ const Note = (props) => {
 
       }
 
-    //   const deleteNote = (id) => {
-    //     props.deleteNote(id)
-    //     location.includes(id) ? history.push('/notes') : null
-    //   }
     return(       
-         
-            <Card style={{margin: "25px"}}>
+            <Card style={{margin: "25px"}}>                
+                {location.includes(id) ?
+                photo ? <Image size="mini" src={photoUrl} wrapped ui={false} /> : null :
+                null}
                 <Card.Content> 
                     <Accordion styled>
                     <Accordion.Title className="card-title"
@@ -55,7 +52,6 @@ const Note = (props) => {
                 </Accordion.Title>
                 <Accordion.Content active={ activeIndex === 0} className="card-content">
                 <p>{content}</p>
-                {photo ? <Image src={photoUrl} size='mini' wrapped ui={false} /> : null }
                 </Accordion.Content>
                 </Accordion>
                 <Card.Meta>Date: {props.updated_at.split('T')[0]}  Time: {props.updated_at.split('T')[1].split('.')[0]}</Card.Meta>

@@ -2,7 +2,7 @@ export const login = (user) => {
     return (dispatch) => {
         dispatch({type:"LOGIN"})
 
-        fetch(`http://localhost:3000/users`,{ 
+        fetch(`http://localhost:3000/login`,{ 
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -15,13 +15,20 @@ export const login = (user) => {
              dispatch({type: "LOGIN_ERROR", errors: user.errors})
              :
              dispatch({ type: "LOGGED_IN", user })
+             localStorage.setItem("token", user.jwt)
             //  window.localStorage.setItem("userId", user.id)
          })
     }
 }
 
+export const autoLogin = (user) => {
+    return dispatch => {
+        dispatch({type:"AUTO_LOG_IN", user})
+    }
+}
+
 export const logout = () => {
-    // window.localStorage.removeItem("userId")
+    window.localStorage.removeItem("token")
     return {
         type: 'LOGOUT',
         username: "",
@@ -32,7 +39,7 @@ export const signup = (user) => {
     return (dispatch) => {
         dispatch({type:"LOGIN"})
 
-        fetch(`http://localhost:3000/users/signup`,{ 
+        fetch(`http://localhost:3000/users`,{ 
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

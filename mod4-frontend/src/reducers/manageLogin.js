@@ -4,19 +4,21 @@ export default function manageLogin(state = {
     switch (action.type) {
 
         case 'LOGIN':
-            return { user: {username: "", id: ""}, loading: true, errors:false } 
+            return { user: {username: "", id: ""}, errors:false } 
 
         case 'LOGGED_IN':
-            return { user: {username: action.user.username, id: action.user.id}, loading:false, errors:false }
+            return { user: {username: action.user.user.username, id: action.user.user.id}, errors:false }
+
+        case 'AUTO_LOG_IN':
+            return {user: {username: action.username, id: action.id}, errors: false}
 
         case 'LOGOUT':
-            return { user: {username:"", id: ""}, loading:false, errors:false }
+            return { user: {username:"", id: ""}, errors:false }
 
         case 'LOGIN_ERROR':
-            return { user: action.errors, loading:false, errors:true }
+            return { user: action.errors, errors:true }
 
         default:
           return state;
       }
-
 }
